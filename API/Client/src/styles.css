@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+.btn-bonito:not(:hover){
+    border: 0cap;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.btn-bonito:hover{
+    box-shadow: 0 0 2px rgba(60,242,129,.9), 0 0 4px rgba(60,242,129,.4), 0 0 1rem rgba(60,242,129,.3), 0 0 4rem rgba(60,242,129,.1);
+    border-width: 2px;
+    background-color: transparent;
+}

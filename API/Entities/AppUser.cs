@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using API.Extensions;
 
 namespace API.Entities
@@ -5,6 +6,7 @@ namespace API.Entities
     public class AppUser
     {
         public int Id { get; set; }
+        [Required]
         public string UserName { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
@@ -18,7 +20,7 @@ namespace API.Entities
         public string Interests { get; set; }
         public string City { get; set; }
         public string Conuntry { get; set; }
-        public List<Photo> Photos { get; set; } = new List<Photo>();
+        public List<Photo> Photos { get; set; } = new();
         public int GetAge()
         {
             return DateofBirth.CalculateAge();

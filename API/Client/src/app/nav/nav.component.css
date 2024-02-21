@@ -1,0 +1,8 @@
+.dropdown-toogle, .dropdown-item{
+    cursor: pointer;
+}
+
+.dropdown-toogle{
+    color: cadetblue;
+    cursor: pointer;
+}

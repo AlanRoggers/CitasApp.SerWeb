@@ -3,7 +3,7 @@
     <h1>Tu perfil</h1>
   </div>
   <div class="col-8">
-    <div class="alert alert-info">
+    <div class="alert alert-info" *ngIf="editForm.dirty">
       <p>
         <strong>IMPORTANTE:</strong>Has realizado cambios. Cualquier cambio que
         no se salve se perderá.
@@ -36,7 +36,14 @@
         </div>
       </div>
       <div class="card-footer">
-        <button class="btn btn-success">Mensajes</button>
+        <button
+          type="submit"
+          form="editForm"
+          [disabled]="!editForm.dirty"
+          class="btn btn-success col-12"
+        >
+          Guardar
+        </button>
       </div>
     </div>
   </div>
@@ -44,7 +51,7 @@
   <div class="col-8">
     <tabset class="member-tabset">
       <tab heading="Acerca de {{ member.knowAs }}">
-        <form>
+        <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
           <h4 class="mt-2">Descripción</h4>
           <textarea
             class="form-control"
@@ -56,26 +63,26 @@
           <textarea
             class="form-control"
             [(ngModel)]="member.lookingFor"
-            name="introduction"
+            name="lookingFor"
             rows="6"
           ></textarea>
           <h4 class="mt-2">Intereses</h4>
           <textarea
             class="form-control"
             [(ngModel)]="member.interests"
-            name="introduction"
+            name="interests"
             rows="6"
           ></textarea>
-          <h4 class="mt-2">Detalles de Ubicación</h4>
+          <h4 class="mt-2">Detalles de ubicación:</h4>
           <div class="d-flex flex-row align-items-center">
-            <label for="city">City</label>
+            <label for="city">City: </label>
             <input
               type="text"
               [(ngModel)]="member.city"
               name="city"
               class="form-control mx-2"
             />
-            <label for="city">Country</label>
+            <label for="country">Country: </label>
             <input
               type="text"
               [(ngModel)]="member.country"
@@ -85,12 +92,8 @@
           </div>
         </form>
       </tab>
-      <tab heading="Intereses">
-        <h4>Intereses</h4>
-        <p>{{ member.interests }}</p>
-      </tab>
       <tab heading="Editar fotos">
-        <p>Aqui pondremos las fotos en un futuro</p>
+        <p>¡Aquí pondremos las fotos en un futuro!</p>
       </tab>
     </tabset>
   </div>

@@ -61,7 +61,47 @@ public class UsersController : BaseApiController
         };
         if (user.Photos.Count == 0) photo.IsMain = true;
         user.Photos.Add(photo);
-        if (await _userRepository.SaveAllAsync()) return _mapper.Map<PhotoDto>(photo);
+        if (await _userRepository.SaveAllAsync())
+        {
+            return CreatedAtAction(nameof(GetUser),
+            new { username = user.UserName },
+            _mapper.Map<PhotoDto>(photo)
+            );
+        }
         return BadRequest("Hubo un problema al subir tu foto");
     }
+    [HttpPut("photo/(photoId)")]
+    public async Task<ActionResult> GetMainPhoto(int photoid)
+    {
+        var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+        if (user == null) return NotFound("No se encuentra el usuario");
+
+        var newMainphoto = user.Photos.FirstOrDefault(photo => photo.Id == photoid);
+        if (newMainphoto == null) return NotFound("No se encuentra la foto");
+        if (newMainphoto.IsMain) return BadRequest("La foto es la principal");
+
+        var currentMainPhoto = user.Photos.FirstOrDefault(photo => photo.IsMain);
+        if (currentMainPhoto != null) currentMainPhoto.IsMain = false;
+        newMainphoto.IsMain = true;
+
+        if (await _userRepository.SaveAllAsync()) return NoContent();
+        return BadRequest("No se pudo establecer la foto como principal");
+    }
+
+    public async Task<ActionResult> DelePhoto(int photoId)
+    {
+        var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+        var photo = user.Photos.FirstOrDefault(p => p.Id == photoId);
+        if (photo == null) return NotFound();
+        if (photo.IsMain) return BadRequest("No se puede borrar la foto principal");
+        if (photo.PublicId != null)
+        {
+            var result = await _photoService.DeletePhotoAsync(photo.PublicId);
+            if (result.Error != null) return BadRequest(result.Error.Message);
+        }
+        user.Photos.Remove(photo);
+        if (await _userRepository.SaveAllAsync()) return Ok();
+        return BadRequest("No ha sido posile borrar la foto");
+    }
+
 }

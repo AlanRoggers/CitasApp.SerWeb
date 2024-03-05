@@ -1,5 +1,5 @@
 export interface IPhoto{
-    id:string;
+    id:number;
     url:string;
     isMain:boolean
 }

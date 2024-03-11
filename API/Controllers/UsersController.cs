@@ -57,6 +57,7 @@ public class UsersController : BaseApiController
         var photo = new Photo
         {
             Url = result.SecureUrl.AbsoluteUri,
+
             PublicId = result.PublicId
         };
         if (user.Photos.Count == 0) photo.IsMain = true;
@@ -70,8 +71,9 @@ public class UsersController : BaseApiController
         }
         return BadRequest("Hubo un problema al subir tu foto");
     }
+
     [HttpPut("photo/(photoId)")]
-    public async Task<ActionResult> GetMainPhoto(int photoid)
+    public async Task<ActionResult> SetMainPhoto(int photoid)
     {
         var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
         if (user == null) return NotFound("No se encuentra el usuario");
@@ -88,6 +90,7 @@ public class UsersController : BaseApiController
         return BadRequest("No se pudo establecer la foto como principal");
     }
 
+    [HttpDelete("photo/(photoId)")]
     public async Task<ActionResult> DelePhoto(int photoId)
     {
         var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());

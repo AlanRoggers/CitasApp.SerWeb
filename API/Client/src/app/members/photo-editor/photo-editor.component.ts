@@ -39,6 +39,7 @@ export class PhotoEditorComponent {
   fileOverBase(e:any){
     this.hasBaseDropZoneOver = e;
   }
+
   setMainPhoto(photo: IPhoto){
     this.memberService.setMainPhoto(photo.id).subscribe({
       next: () => {
@@ -53,6 +54,16 @@ export class PhotoEditorComponent {
         }
       }
     });
+  }
+
+  deletePhoto(photoId:number){
+      this.memberService.deletePhoto(photoId).subscribe({
+        next: () => {
+          if (this.member){
+            this.member.photos = this.member.photos.filter(p => p.id !== photoId);
+          }
+        }
+      });
   }
   initializeUploader(){
     this.uploader = new FileUploader({

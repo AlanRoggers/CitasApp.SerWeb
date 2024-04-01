@@ -21,9 +21,9 @@ namespace API.Entities
         public string City { get; set; }
         public string Conuntry { get; set; }
         public List<Photo> Photos { get; set; } = new();
-        public int GetAge()
-        {
-            return DateofBirth.CalculateAge();
-        }
+        // public int GetAge()
+        // {
+        //     return DateofBirth.CalculateAge();
+        // }
     }
 }

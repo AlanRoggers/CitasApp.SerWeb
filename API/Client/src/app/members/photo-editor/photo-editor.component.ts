@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { take } from 'rxjs';
-import { IMember } from 'src/app/_models/imember';
-import { IPhoto } from 'src/app/_models/iphoto';
-import { IUser } from 'src/app/_models/iuser';
+import { Member } from 'src/app/_models/member';
+import { Photo } from 'src/app/_models/photo';
+import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
 import { MembersService } from 'src/app/_services/members.service';
 import { environment } from 'src/environments/environment.development';
@@ -14,11 +14,11 @@ import { environment } from 'src/environments/environment.development';
   styleUrls: ['./photo-editor.component.css']
 })
 export class PhotoEditorComponent {
-  @Input()member: IMember | undefined;
+  @Input()member: Member | undefined;
   uploader: FileUploader | undefined;
   hasBaseDropZoneOver = false;
   basUrl = environment.apiUrl;
-  user: IUser | undefined;
+  user: User | undefined;
 
   constructor(private accounService: AccountService, private memberService: MembersService){
     this.accounService.currentUser$.pipe(
@@ -40,7 +40,7 @@ export class PhotoEditorComponent {
     this.hasBaseDropZoneOver = e;
   }
 
-  setMainPhoto(photo: IPhoto){
+  setMainPhoto(photo: Photo){
     this.memberService.setMainPhoto(photo.id).subscribe({
       next: () => {
         if (this.user && this.member){
@@ -65,6 +65,7 @@ export class PhotoEditorComponent {
         }
       });
   }
+  
   initializeUploader(){
     this.uploader = new FileUploader({
       url: this.basUrl + "users/photo",
@@ -84,6 +85,11 @@ export class PhotoEditorComponent {
       if (response){
         const photo = JSON.parse(response);
         this.member?.photos.push(photo);
+        if(photo.isMain && this.user && this.member){
+          this.user.photoUrl = photo.url;
+          this.member.photoUrl = photo.url;
+          this.accounService.setCurrentUser(this.user);
+        }
       }
     }
   }

@@ -28,9 +28,6 @@ namespace API.Interfaces
 
         public async Task<PageList<MemberDto>> GetMembersAsync(UserParams userParams)
         {
-            // return await _context.Users
-            //     .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
-            //     .ToListAsync();
             var query = _context.Users.AsQueryable();
             query = query.Where(u => u.UserName != userParams.CurrentUsername);
             query = query.Where(u => u.Gender == userParams.Gender);
@@ -39,6 +36,12 @@ namespace API.Interfaces
             var maxDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MinAge));
 
             query = query.Where(u => u.DateofBirth >= minDob && u.DateofBirth <= maxDob);
+            query = userParams.OrderBy switch
+            {
+                "created" => query.OrderByDescending(u => u.Created),
+                "dob" => query.OrderByDescending(u => u.DateofBirth),
+                _ => query.OrderByDescending(u => u.LastActive)
+            };
 
             return await PageList<MemberDto>.CreateAsync(query.AsNoTracking().ProjectTo<MemberDto>(_mapper.ConfigurationProvider),
             userParams.PageNumber, userParams.PageSize);

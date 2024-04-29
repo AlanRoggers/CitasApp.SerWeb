@@ -1,11 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AccountService } from '../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
-<<<<<<< HEAD
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-=======
->>>>>>> main
 
 @Component({
   selector: 'app-register',
@@ -15,7 +12,6 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
   model: any = {}
-<<<<<<< HEAD
   registerForm: FormGroup = new FormGroup({})
   maxDate: Date = new Date();
   validationErrors: string[] | undefined
@@ -62,19 +58,6 @@ export class RegisterComponent implements OnInit {
     this.accountService.register(values).subscribe({
       next: () => {
         this.router.navigateByUrl("/members");
-=======
-
-  constructor(private accountService: AccountService, private toastr: ToastrService){}
-
-  ngOnInit():void{
-
-  }
-
-  register(): void {
-    this.accountService.register(this.model).subscribe({
-      next: () => {
-        this.cancel();
->>>>>>> main
       },
       error: error => this.toastr.error(error.error)
     });
@@ -83,7 +66,6 @@ export class RegisterComponent implements OnInit {
   cancel():void{
     this.cancelRegister.emit(false);
   }
-<<<<<<< HEAD
 
   private getDateOnly(dob: string | undefined){
     if (!dob) return;
@@ -91,6 +73,4 @@ export class RegisterComponent implements OnInit {
     return new Date(newDob.setMinutes(newDob.getMinutes()-newDob.getTimezoneOffset()))
     .toString().slice(0,10);
   }
-=======
->>>>>>> main
 }

@@ -2,13 +2,8 @@ import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
-<<<<<<< HEAD
 import { Member } from 'src/app/_models/member';
 import { User } from 'src/app/_models/user';
-=======
-import { IMember } from 'src/app/_models/imember';
-import { IUser } from 'src/app/_models/iuser';
->>>>>>> main
 import { AccountService } from 'src/app/_services/account.service';
 import { MembersService } from 'src/app/_services/members.service';
 
@@ -24,13 +19,8 @@ export class MemberEditComponent implements OnInit {
       $event.returnValue = true;
     }
   }
-<<<<<<< HEAD
   member: Member | undefined;
   user: User | null = null;
-=======
-  member: IMember | undefined;
-  user: IUser | null = null;
->>>>>>> main
 
   constructor(private accountService: AccountService,
     private membersService: MembersService,
@@ -48,11 +38,7 @@ export class MemberEditComponent implements OnInit {
     if (!this.user) return;
 
     this.membersService.getMember(this.user.username).subscribe({
-<<<<<<< HEAD
       next: member => {this.member = member; console.log(member)}
-=======
-      next: member => this.member = member
->>>>>>> main
     })
   }
 

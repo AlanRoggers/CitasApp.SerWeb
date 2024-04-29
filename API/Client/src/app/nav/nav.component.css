@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .dropdown-toogle,
 .dropdown-item {
   cursor: pointer;
@@ -13,3 +14,13 @@ img {
   border: 2px solid white;
   display: inline;
 }
+=======
+.dropdown-toogle, .dropdown-item{
+    cursor: pointer;
+}
+
+.dropdown-toogle{
+    color: cadetblue;
+    cursor: pointer;
+}
+>>>>>>> main

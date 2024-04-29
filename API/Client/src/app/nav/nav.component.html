@@ -30,11 +30,16 @@
       *ngIf="accountService.currentUser$ | async as user"
       dropdown
     >
+<<<<<<< HEAD
       <img src="{{ user.photoUrl || './assets/user.svg' }}" alt="User photo" />
       <a
         class="dropdown-toogle text-light text-decoration-none ms-1"
         dropdownToggle
         >Bienvenido {{ user.knownAs }}</a
+=======
+      <a class="dropdown-toogle text-light text-decoration-none" dropdownToggle
+        >Bienvenido {{ user.username | titlecase }}</a
+>>>>>>> main
       >
       <div class="dropdown-menu" *dropdownMenu>
         <a class="dropdown-item" routerLink="/edit">Perfil</a>

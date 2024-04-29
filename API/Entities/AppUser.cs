@@ -1,11 +1,15 @@
 using System.ComponentModel.DataAnnotations;
 using API.Extensions;
 
+using System.ComponentModel.DataAnnotations;
+using API.Extensions;
+
 namespace API.Entities
 {
     public class AppUser
     {
         public int Id { get; set; }
+        [Required]
         [Required]
         public string UserName { get; set; }
         public byte[] PasswordHash { get; set; }

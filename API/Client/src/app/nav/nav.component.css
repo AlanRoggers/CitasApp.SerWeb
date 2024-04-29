@@ -1,3 +1,20 @@
+<<<<<<< HEAD
+.dropdown-toogle,
+.dropdown-item {
+  cursor: pointer;
+}
+
+.dropdown-toogle {
+  color: cadetblue;
+  cursor: pointer;
+}
+
+img {
+  max-height: 50px;
+  border: 2px solid white;
+  display: inline;
+}
+=======
 .dropdown-toogle, .dropdown-item{
     cursor: pointer;
 }
@@ -6,3 +23,4 @@
     color: cadetblue;
     cursor: pointer;
 }
+>>>>>>> main

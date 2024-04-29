@@ -5,7 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
+<<<<<<< HEAD
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+=======
 import { FormsModule } from '@angular/forms';
+>>>>>>> main
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -23,6 +27,12 @@ import { MemberCardComponent } from './members/member-card/member-card.component
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
+<<<<<<< HEAD
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { TextInputComponent } from './_forms/text-input/text-input.component';
+import { DatePickerComponent } from './_forms/date-picker/date-picker.component';
+=======
+>>>>>>> main
 
 @NgModule({
   declarations: [
@@ -37,7 +47,14 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
     NotFoundComponent,
     ServerErrorComponent,
     MemberCardComponent,
+<<<<<<< HEAD
+    MemberEditComponent,
+    PhotoEditorComponent,
+    TextInputComponent,
+    DatePickerComponent
+=======
     MemberEditComponent
+>>>>>>> main
   ],
   imports: [
     BrowserModule,
@@ -45,7 +62,12 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+<<<<<<< HEAD
+    SharedModule,
+    ReactiveFormsModule
+=======
     SharedModule
+>>>>>>> main
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi:true},

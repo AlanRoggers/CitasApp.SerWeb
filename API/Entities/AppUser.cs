@@ -19,6 +19,8 @@ namespace API.Entities
         public string Interests { get; set; }
         public string City { get; set; }
         public string Conuntry { get; set; }
+        public List<UserLike> LikedByUsers { get; set; }
+        public List<UserLike> LikedUser { get; set; }
         public List<Photo> Photos { get; set; } = new();
         // public int GetAge()
         // {

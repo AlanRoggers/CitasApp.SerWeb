@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
+using API.Helpers;
 using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,16 +42,25 @@ namespace API.Controllers
                 TargetUserId = likedUser.Id
             };
 
-            sourceUser.LikedUsers.Add(userLike);
+            sourceUser.LikedUser.Add(userLike);
 
             if (await _userRepository.SaveAllAsync()) return Ok();
 
             return BadRequest("Ha ocurrido un error");
         }
 
-        public async Task<IActionResult> GetUserLikes(string predicate)
+        [HttpGet]
+        public async Task<ActionResult<PageList<LikeDto>>> GetUserLikes([FromQuery] LikesParams lp)
         {
-            var users = await _likesRepository.GetUserLikesAsync(predicate, User.GetUserId());
+            lp.UserId = User.GetUserId();
+
+            var users = await _likesRepository.GetUserLikesAsync(lp);
+
+            Response.AddPaginationHeader(new PaginationHeader(
+                users.CurrentPage,
+                users.PageSize,
+                users.TotalCount,
+                users.TotalPages));
             return Ok(users);
         }
     }

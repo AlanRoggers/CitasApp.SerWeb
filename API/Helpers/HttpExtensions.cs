@@ -3,7 +3,7 @@ using API.Helpers;
 
 public static class HttpExtensions
 {
-    public static void AddPaginationHeader(this HttpResponse response, PaginationHandler header)
+    public static void AddPaginationHeader(this HttpResponse response, PaginationHeader header)
     {
         var jsonOptions = new JsonSerializerOptions
         {

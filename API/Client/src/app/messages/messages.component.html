@@ -32,7 +32,7 @@
 </div>
 
 <div class="row" *ngIf="messages && messages.length > 0">
-  <table class="table table-hover" style="cursor: pointer">
+  <table [hidden]="loading" class="table table-hover" style="cursor: pointer">
     <thead>
       <tr>
         <th stryle="width: 40%">Message</th>
@@ -49,10 +49,11 @@
             ? '/members/' + message.recipientUsername
             : '/members/' + message.senderUsername
         }}"
+        [queryParams]="{ tab: 'Mensajes' }"
       >
         <td>{{ message.content }}</td>
         <td>
-          <div *ngIf="container === 'outbox'">
+          <div *ngIf="container === 'Outbox'">
             <img
               class="img-circle rounded-circle me-2"
               src="{{ message.recipientPhotoUrl || './assets/user.png' }}"
@@ -60,7 +61,7 @@
             />
             <strong>{{ message.recipientUsername | titlecase }}</strong>
           </div>
-          <div *ngIf="container !== 'outbox'">
+          <div *ngIf="container !== 'Outbox'">
             <img
               class="img-circle rounded-circle me-2"
               src="{{ message.senderPhotoUrl || './assets/user.png' }}"
@@ -71,7 +72,13 @@
         </td>
         <td>{{ message.messageSent | timeago }}</td>
         <td>
-          <button class="btn btn-danger">Delete</button>
+          <button
+            (click)="$event.stopPropagation()"
+            (click)="deleteMessage(message.id)"
+            class="btn btn-danger"
+          >
+            Borrar
+          </button>
         </td>
       </tr>
     </tbody>
